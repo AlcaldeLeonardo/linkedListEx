@@ -6,7 +6,8 @@ export class LinkedList {
   }
 
   append (value) {
-    // toDo
+    const listTail = this.tail()
+    listTail.next = new Node(value)
   }
 
   prepend (value) {
