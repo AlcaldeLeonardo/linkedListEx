@@ -7,8 +7,12 @@ export class LinkedList {
   }
 
   append (value) {
-    const listTail = this.tail()
-    listTail.next = new Node(value)
+    if (this.listHead === null) {
+      this.listHead = new Node(value)
+    } else {
+      const listTail = this.tail()
+      listTail.next = new Node(value)
+    }
 
     this.listSize++
   }
@@ -29,14 +33,17 @@ export class LinkedList {
   tail () {
     let temp = this.head()
     if (temp === null) {
-      return 'empty List\n'
+      return null
     }
     while (temp.next !== null) temp = temp.next
     return temp
   }
 
   at (index) {
-    if (index >= this.size()) return `invalid value. Max Value: ${this.size() - 1}`
+    if (index >= this.size()) {
+      console.log(`invalid value. Max Value: ${this.size() - 1}`)
+      return null
+    }
     if (index === 0) return this.head()
 
     let temp = this.head()
@@ -47,19 +54,23 @@ export class LinkedList {
   }
 
   pop () {
-    if (this.size() < 2) {
-      console.log('Invalid Method, tail no found')
+    if (this.size() === 0) {
+      console.log('Invalid Method, list is empty')
       return
     }
-    const temp = this.at(this.size() - 2)
-    temp.next = null
+    if (this.size() === 1) {
+      this.listHead = null
+    } else {
+      const temp = this.at(this.size() - 2)
+      temp.next = null
+    }
     this.listSize--
   }
 
   contains (value) {
     if (this.size() === 0) {
       console.log('Empty List')
-      return
+      return false
     }
     let temp = this.head()
     while (temp !== null) {
@@ -83,6 +94,7 @@ export class LinkedList {
   }
 
   toString () {
+    if (this.size() === 0) return 'null'
     let temp = this.head()
     let value = `(${temp.value})`
     while (temp.next !== null) {
@@ -93,6 +105,11 @@ export class LinkedList {
   }
 
   insertAt (value, index) {
+    if (index < 0 || index > this.size()) {
+      console.log('Index out of bounds')
+      return
+    }
+
     if (index === 0) {
       this.prepend(value)
       return
@@ -100,9 +117,25 @@ export class LinkedList {
     const node = this.at(index - 1)
     const newNode = new Node(value, node.next)
     node.next = newNode
+    this.listSize++
   }
 
   removeAt (index) {
-    // toDo
+    if (index < 0 || index >= this.size()) {
+      console.log('Index out of bounds')
+      return
+    }
+
+    const nodeToDel = this.at(index)
+    if (nodeToDel === this.head()) {
+      const head = this.head()
+      const newNode = head.next
+      this.listHead = newNode
+      this.listSize--
+      return
+    }
+    const preNode = this.at(index - 1)
+    preNode.next = nodeToDel.next
+    this.listSize--
   }
 }
