@@ -83,11 +83,23 @@ export class LinkedList {
   }
 
   toString () {
-    // toDo
+    let temp = this.head()
+    let value = `(${temp.value})`
+    while (temp.next !== null) {
+      temp = temp.next
+      value = value.concat(` -> (${temp.value})`)
+    }
+    return value.concat(' -> null')
   }
 
   insertAt (value, index) {
-    // toDo
+    if (index === 0) {
+      this.prepend(value)
+      return
+    }
+    const node = this.at(index - 1)
+    const newNode = new Node(value, node.next)
+    node.next = newNode
   }
 
   removeAt (index) {
