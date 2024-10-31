@@ -36,7 +36,14 @@ export class LinkedList {
   }
 
   at (index) {
-    // toDo
+    if (index >= this.size()) return `invalid value. Max Value: ${this.size() - 1}`
+    if (index === 0) return this.head()
+
+    let temp = this.head()
+    for (let i = 0; i < index; i++) {
+      temp = temp.next
+    }
+    return temp
   }
 
   pop () {
