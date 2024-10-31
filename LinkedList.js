@@ -47,7 +47,13 @@ export class LinkedList {
   }
 
   pop () {
-    // toDo
+    if (this.size() < 2) {
+      console.log('Invalid Method, tail no found')
+      return
+    }
+    const temp = this.at(this.size() - 2)
+    temp.next = null
+    this.listSize--
   }
 
   contains (value) {
