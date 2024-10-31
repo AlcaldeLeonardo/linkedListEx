@@ -57,11 +57,29 @@ export class LinkedList {
   }
 
   contains (value) {
-    // toDo
+    if (this.size() === 0) {
+      console.log('Empty List')
+      return
+    }
+    let temp = this.head()
+    while (temp !== null) {
+      if (temp.value === value) return true
+      temp = temp.next
+    }
+    return false
   }
 
   find (value) {
-    // toDo
+    let temp = this.head()
+    let index = 0
+    while (temp !== null) {
+      if (value === temp.value) {
+        return index
+      }
+      temp = temp.next
+      index++
+    }
+    return null
   }
 
   toString () {
